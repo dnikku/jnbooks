@@ -21,20 +21,19 @@ RUN apt-get update --fix-missing && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-# install conda && jupyterlab
+# install conda && jupyterlab, pip
 RUN curl "$CONDA_URL" -o /tmp/miniconda.sh && echo "$CONDA_SHA256  /tmp/miniconda.sh" | sha256sum -c && \
     /bin/bash /tmp/miniconda.sh -b -p /opt/conda && rm /tmp/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
-    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+    conda install -c conda-forge pip jupyterlab numpy ipympl pandas scipy
 
 
 USER $MY_USER
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
-CMD [ "tail", "-f", "/dev/null" ]
+#CMD [ "tail", "-f", "/dev/null" ]
 
+CMD [ "jupyter-lab", "--no-browser", "--ip=0.0.0.0", "--port=8888", "--NotebookApp.token=''", "--NotebookApp.password=''", "--notebook-dir='/home/'"]
 
 
 
