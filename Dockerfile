@@ -28,6 +28,10 @@ RUN curl "$CONDA_URL" -o /tmp/miniconda.sh && echo "$CONDA_SHA256  /tmp/minicond
     /opt/conda/bin/conda clean -tipsy && \
     conda install -c conda-forge pip jupyterlab numpy ipympl pandas scipy
 
+# install numpyro for statistical rethinking https://fehiepsi.github.io/rethinking-numpyro/
+RUN conda install -c conda-forge numpyro && \
+    pip install arviz causalgraphicalmodels daft
+
 
 USER $MY_USER
 
