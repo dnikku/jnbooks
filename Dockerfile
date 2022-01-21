@@ -26,19 +26,12 @@ RUN apt-get update --fix-missing && \
 RUN curl "$CONDA_URL" -o /tmp/miniconda.sh && echo "$CONDA_SHA256  /tmp/miniconda.sh" | sha256sum -c && \
     /bin/bash /tmp/miniconda.sh -b -p /opt/conda && rm /tmp/miniconda.sh && \
     /opt/conda/bin/conda clean -tipsy && \
-    conda install -c conda-forge pip jupyterlab numpy ipympl pandas scipy seaborn
+    conda install -c conda-forge pip jupyterlab numpy ipympl pandas scipy
 
 # install numpyro for statistical rethinking https://fehiepsi.github.io/rethinking-numpyro/
 RUN conda install -c conda-forge numpyro && \
     pip install arviz causalgraphicalmodels daft
 
-# install clojure (not working)
-# RUN conda install -y -c simplect clojupyter
-
-#RUN clj -m clojupyter.cmdline install --ident clojur -h
-#RUN jupyter kernelspec install $CONDA_DIR/clojupyter/share/jupyter/kernels/conda-clojupyter --user
-
-# try: http://gorilla-repl.org/index.html
 
 USER $MY_USER
 
