@@ -32,8 +32,12 @@ RUN curl "$CONDA_URL" -o /tmp/miniconda.sh && echo "$CONDA_SHA256  /tmp/minicond
 RUN conda install -c conda-forge numpyro && \
     pip install arviz causalgraphicalmodels daft
 
-
 USER $MY_USER
+
+# install vim binding extensions
+RUN mkdir -p $(jupyter --data-dir)/nbextensions && cd $(jupyter --data-dir)/nbextensions && \
+    git clone --depth=1 https://github.com/lambdalisue/jupyter-vim-binding vim_binding
+
 
 ENTRYPOINT [ "/usr/bin/tini", "--" ]
 #CMD [ "tail", "-f", "/dev/null" ]
