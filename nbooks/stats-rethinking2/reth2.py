@@ -68,7 +68,7 @@ def dbinom(probs, N, K):
     return jnp.exp(dist.Binomial(total_count=N, probs=probs).log_prob(K))
 
 def rbinom(probs, N, num):
-    return dist.Binomial(total_count=N, probs=probs).sample(random_gen, (num,))
+    return dist.Binomial(total_count=N, probs=probs).sample(random_gen, num)
 
 def dbeta(p_grid, a, b):
     return jnp.exp(dist.Beta(a, b).log_prob(p_grid))
