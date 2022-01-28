@@ -1,2 +1,6 @@
 
+**/.gradle
+gradle/
+
+
 **/.ipynb_checkpoints/
