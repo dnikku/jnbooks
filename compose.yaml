@@ -1,0 +1,12 @@
+version: '3.3'
+
+
+services:
+  book:
+    image: my-jnbooks
+    ports:
+      - 8888:8888
+
+    # hotreload python files
+    volumes:
+      - ./nbooks:/home/nbooks
